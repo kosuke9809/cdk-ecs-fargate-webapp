@@ -11,6 +11,20 @@ const app = new cdk.App();
 
 type EnvContext = 'dev' | 'stg' | 'prd';
 
+function getEnv(config: IConfig) {
+  if (config.Env.account && config.Env.account) {
+    return {
+      account: config.Env.account,
+      region: config.Env.region,
+    };
+  } else {
+    return {
+      account: process.env.CDK_DEFAULT_ACCOUNT,
+      region: process.env.CDK_DEFAULT_REGION,
+    };
+  }
+}
+
 function loadConfig(deployEnv: EnvContext): IConfig {
   const configFile = path.join(__dirname, `../config/${deployEnv}.ts`);
   if (!fs.existsSync(configFile)) {
@@ -32,9 +46,6 @@ const config: IConfig = loadConfig(envKey);
 
 // stasks
 new EcsAppStack(app, 'EcsApp', {
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+  env: getEnv(config),
   vpcProps: config.Vpc,
 });

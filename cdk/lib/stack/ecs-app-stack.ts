@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { VpcConstruct } from '../construct/vpc-construct';
 
-interface VpcProps {
+export interface VpcProps {
   maxAzs: number;
   natGateways: number;
 }
