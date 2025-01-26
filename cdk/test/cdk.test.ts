@@ -1,17 +1,30 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as Cdk from '../lib/cdk-stack';
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { EcsAppStack, VpcProps } from '../lib/stack/ecs-app-stack';
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/cdk-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new Cdk.CdkStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
+describe('EcsAppStack', () => {
+  const app = new cdk.App();
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+  const VpcProps: VpcProps = {
+    maxAzs: 2,
+    natGateways: 2,
+  };
+
+  const stack = new EcsAppStack(app, 'MyTestStack', {
+    env: {
+      account: '123456789012',
+      region: 'us-east-1',
+    },
+    vpcProps: VpcProps,
+  });
+
+  const template = Template.fromStack(stack);
+
+  test('Creates correct number of NAT gateway', () => {
+    template.resourceCountIs('AWS::EC2::NatGateway', 2);
+  });
+
+  test('Creates correct number of subnets', () => {
+    template.resourceCountIs('AWS::EC2::Subnet', 4);
+  });
 });
