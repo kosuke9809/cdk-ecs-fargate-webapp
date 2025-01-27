@@ -15,6 +15,7 @@ describe('ServicesStack', () => {
       account: '123456789012',
       region: 'us-east-1',
     },
+    servicePrefix: 'MyTestService',
     vpcProps: VpcProps,
   });
 

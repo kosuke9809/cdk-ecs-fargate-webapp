@@ -11,7 +11,7 @@ export class VpcConstruct extends Construct {
   constructor(scope: Construct, id: string, props: VpcConstructProps) {
     super(scope, id);
 
-    const myVpc = new ec2.Vpc(this, 'MyVpc', {
+    const myVpc = new ec2.Vpc(this, 'Vpc', {
       ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
       maxAzs: props.maxAzs,
       natGateways: props.natGateways,
