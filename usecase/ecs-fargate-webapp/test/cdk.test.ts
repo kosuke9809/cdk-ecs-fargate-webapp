@@ -1,8 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { EcsAppStack, VpcProps } from '../lib/stack/ecs-app-stack';
+import { ServiceStack, VpcProps } from '../lib/stack/service-stack';
 
-describe('EcsAppStack', () => {
+describe('ServicesStack', () => {
   const app = new cdk.App();
 
   const VpcProps: VpcProps = {
@@ -10,11 +10,12 @@ describe('EcsAppStack', () => {
     natGateways: 2,
   };
 
-  const stack = new EcsAppStack(app, 'MyTestStack', {
+  const stack = new ServiceStack(app, 'MyTestStack', {
     env: {
       account: '123456789012',
       region: 'us-east-1',
     },
+    servicePrefix: 'MyTestService',
     vpcProps: VpcProps,
   });
 

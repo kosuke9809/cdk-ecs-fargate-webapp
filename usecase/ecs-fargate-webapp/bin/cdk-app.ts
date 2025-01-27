@@ -3,7 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import { IConfig } from '../config/interface';
 import * as path from 'path';
 import * as fs from 'fs';
-import { EcsAppStack } from '../lib/stack/ecs-app-stack';
+import { ServiceStack } from '../lib/stack/service-stack';
 
 const app = new cdk.App();
 
@@ -44,8 +44,11 @@ if (envKey == undefined) {
 
 const config: IConfig = loadConfig(envKey);
 
+const servicePrefix = `${config.Env.envName}-${config.Env.serviceName}`;
+
 // stasks
-new EcsAppStack(app, 'EcsApp', {
+new ServiceStack(app, 'EcsApp', {
   env: getEnv(config),
+  servicePrefix,
   vpcProps: config.Vpc,
 });
