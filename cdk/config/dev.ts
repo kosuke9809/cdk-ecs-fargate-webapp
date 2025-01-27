@@ -2,6 +2,7 @@ import * as inf from './interface';
 
 export const Env: inf.IEnv = {
   envName: 'dev',
+  serviceName: 'webapp',
 };
 
 export const VpcConfig: inf.IVpcConfig = {

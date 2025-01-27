@@ -1,5 +1,6 @@
 export interface IEnv {
   envName: string;
+  serviceName: string;
   account?: string;
   region?: string;
 }
