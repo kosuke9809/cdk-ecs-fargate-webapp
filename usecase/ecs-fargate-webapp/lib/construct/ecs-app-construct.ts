@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as ssm from 'aws-cdk-lib/aws-ssm';
 
 export interface EcsAppConstructProps {
   serviceName: string;
@@ -31,19 +32,19 @@ export class EcsAppConstruct extends Construct {
       ],
     });
 
-    new cdk.CfnOutput(this, 'EcrRepositoryArn', {
-      value: ecrRepository.repositoryArn,
-      description: `${props.serviceName} ECR Repository ARN`,
+    new ssm.StringParameter(this, 'EcrRepositoryArn', {
+      parameterName: `/${props.serviceName}/ecr-repository-arn`,
+      stringValue: ecrRepository.repositoryArn,
     });
 
-    new cdk.CfnOutput(this, 'TaskRoleArn', {
-      value: taskRole.roleArn,
-      description: `${props.serviceName} Task Role ARN`,
+    new ssm.StringParameter(this, 'TaskRoleArn', {
+      parameterName: `/${props.serviceName}/task-role-arn`,
+      stringValue: taskRole.roleArn,
     });
 
-    new cdk.CfnOutput(this, 'TaskExecRoleArn', {
-      value: taskExecRole.roleArn,
-      description: `${props.serviceName} Task Execution Role ARN`,
+    new ssm.StringParameter(this, 'TaskExecRoleArn', {
+      parameterName: `/${props.serviceName}/task-exec-role-arn`,
+      stringValue: taskExecRole.roleArn,
     });
 
     this.taskRole = taskRole;
