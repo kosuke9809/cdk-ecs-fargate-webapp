@@ -11,6 +11,7 @@ interface AlbConstructProps {
 }
 
 export class AlbConstruct extends Construct {
+  public readonly alb: elbv2.ApplicationLoadBalancer;
   constructor(scope: Construct, id: string, props: AlbConstructProps) {
     super(scope, id);
 
@@ -70,5 +71,7 @@ export class AlbConstruct extends Construct {
       parameterName: `/${props.serviceName}/target-group-arn`,
       stringValue: defaultTargetGroup.targetGroupArn,
     });
+
+    this.alb = alb;
   }
 }
