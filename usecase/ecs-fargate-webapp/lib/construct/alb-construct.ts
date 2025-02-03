@@ -4,7 +4,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 
 interface AlbConstructProps {
-  serviceName: string;
+  servicePrefix: string;
   vpc: ec2.Vpc;
   acmCertificateArn?: string;
   frontendPort?: number;
@@ -63,12 +63,12 @@ export class AlbConstruct extends Construct {
     }
 
     new ssm.StringParameter(this, 'AlbArn', {
-      parameterName: `/${props.serviceName}/alb-arn`,
+      parameterName: `/${props.servicePrefix}/alb-arn`,
       stringValue: alb.loadBalancerArn,
     });
 
     new ssm.StringParameter(this, 'TargetGroupArn', {
-      parameterName: `/${props.serviceName}/target-group-arn`,
+      parameterName: `/${props.servicePrefix}/target-group-arn`,
       stringValue: defaultTargetGroup.targetGroupArn,
     });
 
