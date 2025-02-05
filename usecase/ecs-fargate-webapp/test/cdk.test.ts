@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
+
 import { ServiceStack, VpcProps } from '../lib/stack/service-stack';
 
 describe('ServicesStack', () => {

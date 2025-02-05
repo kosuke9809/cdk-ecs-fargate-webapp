@@ -1,9 +1,10 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { VpcConstruct } from '../construct/vpc-construct';
-import { EcsClusterConstruct } from '../construct/ecs-cluster-construct';
+
 import { AlbConstruct } from '../construct/alb-construct';
 import { EcsAppConstruct } from '../construct/ecs-app-construct';
+import { EcsClusterConstruct } from '../construct/ecs-cluster-construct';
+import { VpcConstruct } from '../construct/vpc-construct';
 
 export interface VpcProps {
   maxAzs: number;

@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-import * as cdk from 'aws-cdk-lib';
-import { IConfig } from '../config/interface';
-import * as path from 'path';
 import * as fs from 'fs';
+import * as path from 'path';
+
+import * as cdk from 'aws-cdk-lib';
+
+import { IConfig } from '../config/interface';
 import { ServiceStack } from '../lib/stack/service-stack';
 
 const app = new cdk.App();
