@@ -1,5 +1,5 @@
-import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import { Construct } from 'constructs';
 
 interface VpcConstructProps {
   maxAzs: number;
