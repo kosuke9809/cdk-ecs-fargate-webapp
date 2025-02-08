@@ -7,11 +7,11 @@ interface VpcConstructProps {
 }
 
 export class VpcConstruct extends Construct {
-  public readonly myVpc: ec2.Vpc;
+  public readonly vpc: ec2.Vpc;
   constructor(scope: Construct, id: string, props: VpcConstructProps) {
     super(scope, id);
 
-    const myVpc = new ec2.Vpc(this, 'Vpc', {
+    const vpc = new ec2.Vpc(this, 'Vpc', {
       ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
       maxAzs: props.maxAzs,
       natGateways: props.natGateways,
@@ -33,6 +33,6 @@ export class VpcConstruct extends Construct {
         },
       ],
     });
-    this.myVpc = myVpc;
+    this.vpc = vpc;
   }
 }
