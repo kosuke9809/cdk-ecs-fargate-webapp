@@ -51,6 +51,9 @@ const servicePrefix = `${config.Env.envName}-${config.Env.serviceName}`;
 // stasks
 new ServiceStack(app, 'EcsApp', {
   env: getEnv(config),
+  envName: config.Env.envName,
   servicePrefix,
+  removalConfig: config.RemovalConfig,
   vpcProps: config.Vpc,
+  auroraProps: config.Aurora,
 });
