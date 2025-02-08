@@ -5,12 +5,12 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
+import { IRemovalConfig } from '../../config/interface';
 
 export interface EcsAppConstructProps {
   serviceName: string;
   vpc: ec2.Vpc;
-  removalPolicy: cdk.RemovalPolicy;
-  autoDeleteImages: boolean;
+  removalConfig: IRemovalConfig;
 }
 
 export class EcsAppConstruct extends Construct {
@@ -21,12 +21,12 @@ export class EcsAppConstruct extends Construct {
 
     const ecrRepository = new ecr.Repository(this, 'EcrRepository', {
       repositoryName: `${props.serviceName}-repository`.slice(0, 256),
-      removalPolicy: props.removalPolicy,
-      autoDeleteImages: props.autoDeleteImages,
+      removalPolicy: props.removalConfig.removalPolicy,
+      emptyOnDelete: props.removalConfig.emptyOnDelete,
     });
 
     const envBucket = new s3.Bucket(this, 'EnvBucket', {
-      removalPolicy: props.removalPolicy,
+      removalPolicy: props.removalConfig.removalPolicy,
       accessControl: s3.BucketAccessControl.PRIVATE,
       encryption: s3.BucketEncryption.S3_MANAGED,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
