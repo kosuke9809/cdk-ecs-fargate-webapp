@@ -26,9 +26,16 @@ export interface IAurora {
   clusterParameters: { [key: string]: string };
 }
 
+export interface ICloudFront {
+  defaultRootObject?: string;
+  acmCertificateArn?: string;
+  domainName?: string;
+}
+
 export interface IConfig {
   Env: IEnv;
   RemovalConfig: IRemovalConfig;
   Vpc: IVpcConfig;
   Aurora: IAurora;
+  CloudFront: ICloudFront;
 }

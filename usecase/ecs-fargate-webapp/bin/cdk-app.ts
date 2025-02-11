@@ -6,6 +6,7 @@ import * as cdk from 'aws-cdk-lib';
 
 import { IConfig } from '../config/interface';
 import { ServiceStack } from '../lib/stack/service-stack';
+import { CfWafStack } from '../lib/stack/cf-waf-stack';
 
 const app = new cdk.App();
 
@@ -49,11 +50,21 @@ const config: IConfig = loadConfig(envKey);
 const servicePrefix = `${config.Env.envName}-${config.Env.serviceName}`;
 
 // stasks
-new ServiceStack(app, 'EcsApp', {
+
+const cfWaf = new CfWafStack(app, 'CfWaf', {
+  env: {
+    account: config.Env.account,
+    region: 'us-east-1',
+  },
+});
+
+new ServiceStack(app, 'Service', {
   env: getEnv(config),
   envName: config.Env.envName,
   servicePrefix,
+  webAcl: cfWaf.webAcl,
   removalConfig: config.RemovalConfig,
   vpcProps: config.Vpc,
   auroraProps: config.Aurora,
+  cloudfrontProps: config.CloudFront,
 });

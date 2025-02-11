@@ -29,9 +29,16 @@ export const Aurora: inf.IAurora = {
   clusterParameters: {},
 };
 
+export const CloudFront: inf.ICloudFront = {
+  defaultRootObject: 'index.html',
+  acmCertificateArn: '',
+  domainName: '',
+};
+
 export const config: inf.IConfig = {
   Env: Env,
   RemovalConfig: RemovalConfig,
   Aurora: Aurora,
   Vpc: Vpc,
+  CloudFront: CloudFront,
 };
